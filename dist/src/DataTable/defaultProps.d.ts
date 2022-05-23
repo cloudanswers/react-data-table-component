@@ -96,4 +96,5 @@ export declare const defaultProps: {
     onSort: () => null;
     onColumnOrderChange: () => null;
     keepExpandableFirst: boolean;
+    footer: null;
 };

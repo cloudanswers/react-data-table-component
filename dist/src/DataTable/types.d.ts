@@ -122,6 +122,7 @@ export declare type TableProps<T> = {
     subHeaderWrap?: boolean;
     theme?: Themes;
     title?: string | React.ReactNode;
+    footer?: React.ReactNode;
 };
 export declare type TableColumnBase = {
     allowOverflow?: boolean;
