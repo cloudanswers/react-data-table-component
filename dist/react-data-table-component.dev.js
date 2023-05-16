@@ -639,7 +639,7 @@ function Row({ columns = [], conditionalRowStyles = [], defaultExpanderDisabled 
         expandableRows && expanded && (React__namespace.createElement(ExpanderRow$1, { key: `expander-${rowKeyField}`, data: row, extendedRowStyle: inheritStyles, extendedClassNames: classNames, ExpanderComponent: expandableRowsComponent, expanderComponentProps: expandableRowsComponentProps }))));
 }
 
-const Icon$1 = styled__default["default"].span `
+const Icon = styled__default["default"].span `
 	padding: 2px;
 	color: inherit;
 	flex-grow: 0;
@@ -647,21 +647,7 @@ const Icon$1 = styled__default["default"].span `
 	${({ sortActive }) => (sortActive ? 'opacity: 1' : 'opacity: 0')};
 	${({ sortDirection }) => sortDirection === 'desc' && 'transform: rotate(180deg)'};
 `;
-const NativeSortIcon = ({ sortActive, sortDirection }) => (React__default["default"].createElement(Icon$1, { sortActive: sortActive, sortDirection: sortDirection }, "\u25B2"));
-
-const Icon = styled__default["default"].span `
-	padding: 0px;
-	color: inherit;
-	flex-grow: 0;
-	flex-shrink: 0;
-	opacity: 0;
-	&:hover {
-		opacity: 1;
-	}
-`;
-const NativeReorderIcon = ({}) => (React__default["default"].createElement(Icon, null,
-    React__default["default"].createElement("svg", { width: "10px", height: "10px", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 320 512" },
-        React__default["default"].createElement("path", { d: "M40 352l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40zm192 0l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40zM40 320c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0zM232 192l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40zM40 160c-22.1 0-40-17.9-40-40L0 72C0 49.9 17.9 32 40 32l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0zM232 32l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40z" }))));
+const NativeSortIcon = ({ sortActive, sortDirection }) => (React__default["default"].createElement(Icon, { sortActive: sortActive, sortDirection: sortDirection }, "\u25B2"));
 
 const ColumnStyled = styled__default["default"](CellExtended) `
 	${({ button }) => button && 'text-align: center'};
@@ -757,7 +743,6 @@ function TableCol({ column, disabled, draggingColumnId, selectedColumn = {}, sor
     };
     const renderNativeSortIcon = (sortActive) => (React__namespace.createElement(NativeSortIcon, { sortActive: sortActive, sortDirection: sortDirection }));
     const renderCustomSortIcon = () => (React__namespace.createElement("span", { className: [sortDirection, '__rdt_custom_sort_icon__'].join(' ') }, sortIcon));
-    const renderNativeReorderIcon = () => React__namespace.createElement(NativeReorderIcon, null);
     const sortActive = !!(column.sortable && equalizeId(selectedColumn.id, column.id));
     const disableSort = !column.sortable || disabled;
     const nativeSortIconLeft = column.sortable && !sortIcon && !column.right;
@@ -765,7 +750,6 @@ function TableCol({ column, disabled, draggingColumnId, selectedColumn = {}, sor
     const customSortIconLeft = column.sortable && sortIcon && !column.right;
     const customSortIconRight = column.sortable && sortIcon && column.right;
     return (React__namespace.createElement(ColumnStyled, { "data-column-id": column.id, className: "rdt_TableCol", headCell: true, allowOverflow: column.allowOverflow, button: column.button, compact: column.compact, grow: column.grow, hide: column.hide, maxWidth: column.maxWidth, minWidth: column.minWidth, right: column.right, center: column.center, width: column.width, draggable: column.reorder, isDragging: equalizeId(column.id, draggingColumnId), onDragStart: onDragStart, onDragOver: onDragOver, onDragEnd: onDragEnd, onDragEnter: onDragEnter, onDragLeave: onDragLeave }, column.name && (React__namespace.createElement(ColumnSortable, { "data-column-id": column.id, "data-sort-id": column.id, role: "columnheader", tabIndex: 0, className: "rdt_TableCol_Sortable", onClick: !disableSort ? handleSortChange : undefined, onKeyPress: !disableSort ? handleKeyPress : undefined, sortActive: !disableSort && sortActive, disabled: disableSort },
-        column.reorder && renderNativeReorderIcon(),
         !disableSort && customSortIconRight && renderCustomSortIcon(),
         !disableSort && nativeSortIconRight && renderNativeSortIcon(sortActive),
         typeof column.name === 'string' ? (React__namespace.createElement(ColumnText, { title: showTooltip ? column.name : undefined, ref: columnRef, "data-column-id": column.id }, column.name)) : (column.name),
