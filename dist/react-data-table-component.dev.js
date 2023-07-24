@@ -741,9 +741,14 @@ function TableCol({ column, disabled, draggingColumnId, selectedColumn = {}, sor
             handleSortChange();
         }
     };
-    const renderNativeSortIcon = (sortActive) => (React__namespace.createElement(NativeSortIcon, { sortActive: sortActive, sortDirection: currentSortDirection }));
+    const renderNativeSortIcon = (sortActive) => (React__namespace.createElement(NativeSortIcon, { sortActive: sortActive, sortDirection: currentSortDirection !== null && currentSortDirection !== void 0 ? currentSortDirection : sortDirection }));
     const renderCustomSortIcon = () => (React__namespace.createElement("span", { className: [sortDirection, '__rdt_custom_sort_icon__'].join(' ') }, sortIcon));
-    const sortActive = !!(column.sortable && currentSortColumnId !== null && equalizeId(currentSortColumnId, column.id));
+    const sortActive = (() => {
+        if (currentSortColumnId !== null) {
+            return !!(column.sortable && equalizeId(currentSortColumnId, column.id));
+        }
+        return !!(column.sortable && equalizeId(selectedColumn.id, column.id));
+    })();
     const disableSort = !column.sortable || disabled;
     const nativeSortIconLeft = column.sortable && !sortIcon && !column.right;
     const nativeSortIconRight = column.sortable && !sortIcon && column.right;
@@ -1230,7 +1235,7 @@ const defaultProps = {
     keepExpandableFirst: false,
     footer: null,
     currentSortColumnId: null,
-    currentSortDirection: 'asc',
+    currentSortDirection: undefined,
 };
 
 const defaultComponentOptions = {

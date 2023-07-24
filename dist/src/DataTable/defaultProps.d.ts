@@ -1,6 +1,5 @@
 /// <reference types="react" />
 import { Alignment, Direction } from './constants';
-import { SortOrder } from './types';
 export declare const defaultProps: {
     columns: never[];
     data: never[];
@@ -99,5 +98,5 @@ export declare const defaultProps: {
     keepExpandableFirst: boolean;
     footer: null;
     currentSortColumnId: null;
-    currentSortDirection: SortOrder;
+    currentSortDirection: undefined;
 };
