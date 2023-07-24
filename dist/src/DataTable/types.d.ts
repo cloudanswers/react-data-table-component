@@ -123,6 +123,8 @@ export declare type TableProps<T> = {
     theme?: Themes;
     title?: string | React.ReactNode;
     footer?: React.ReactNode;
+    currentSortColumnId: string | number | null;
+    currentSortDirection: SortOrder;
 };
 export declare type TableColumnBase = {
     allowOverflow?: boolean;

@@ -18,7 +18,9 @@ declare type TableColProps<T> = {
     onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void;
     onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void;
     onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
+    currentSortColumnId: string | number | null;
+    currentSortDirection: SortOrder;
 };
-declare function TableCol<T>({ column, disabled, draggingColumnId, selectedColumn, sortDirection, sortIcon, sortServer, pagination, paginationServer, persistSelectedOnSort, selectableRowsVisibleOnly, onSort, onDragStart, onDragOver, onDragEnd, onDragEnter, onDragLeave, }: TableColProps<T>): JSX.Element | null;
+declare function TableCol<T>({ column, disabled, draggingColumnId, selectedColumn, sortDirection, sortIcon, sortServer, pagination, paginationServer, persistSelectedOnSort, selectableRowsVisibleOnly, onSort, onDragStart, onDragOver, onDragEnd, onDragEnter, onDragLeave, currentSortColumnId, currentSortDirection, }: TableColProps<T>): JSX.Element | null;
 declare const _default: typeof TableCol;
 export default _default;
