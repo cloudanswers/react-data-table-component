@@ -111,4 +111,5 @@ export const defaultProps = {
 	footer: null,
 	currentSortColumnId: null,
 	currentSortDirection: undefined,
+	isInnerTable: false,
 };

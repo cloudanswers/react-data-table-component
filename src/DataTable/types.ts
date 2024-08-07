@@ -120,6 +120,7 @@ export type TableProps<T> = {
 	footer?: React.ReactNode;
 	currentSortColumnId?: string | number | null;
 	currentSortDirection?: SortOrder;
+	isInnerTable?: boolean;
 };
 
 export type TableColumnBase = {

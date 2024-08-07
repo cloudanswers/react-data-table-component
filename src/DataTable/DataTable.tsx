@@ -123,6 +123,7 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 		footer = defaultProps.footer,
 		currentSortColumnId = defaultProps.currentSortColumnId,
 		currentSortDirection = defaultProps.currentSortDirection,
+		isInnerTable = defaultProps.isInnerTable,
 	} = props;
 
 	const {
@@ -584,12 +585,13 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 					</Wrapper>
 				</ResponsiveWrapper>
 
-				{freezedColumns.length > 0 && (
+				{!isInnerTable && freezedColumns.length > 0 && (
 					<div
 						style={{
 							position: 'absolute',
 							top: 0,
 							left: 0,
+							maxWidth: '100%',
 						}}
 					>
 						<Table disabled={disabled} className="rdt_Table" role="table">
