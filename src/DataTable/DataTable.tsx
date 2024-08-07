@@ -138,8 +138,14 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 	} = useColumns(columns, onColumnOrderChange, defaultSortFieldId, defaultSortAsc);
 
 	const freezedColumns = React.useMemo(() => {
-		const index = tableColumns.findIndex(column => column.freeze);
-		return tableColumns.slice(0, index + 1);
+		// Find index of last freezed column
+		const index = tableColumns.reduce((i, column) => {
+			if (column.freeze) {
+				i += 1;
+			}
+			return i;
+		}, 0);
+		return tableColumns.slice(0, index);
 	}, [tableColumns]);
 
 	const [
