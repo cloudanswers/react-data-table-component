@@ -125,6 +125,7 @@ export declare type TableProps<T> = {
     footer?: React.ReactNode;
     currentSortColumnId?: string | number | null;
     currentSortDirection?: SortOrder;
+    isInnerTable?: boolean;
 };
 export declare type TableColumnBase = {
     allowOverflow?: boolean;
