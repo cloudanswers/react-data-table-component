@@ -578,122 +578,124 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 					</Wrapper>
 				</ResponsiveWrapper>
 
-				<div
-					style={{
-						position: 'absolute',
-						top: 0,
-						left: 0,
-					}}
-				>
-					<Table disabled={disabled} className="rdt_Table" role="table">
-						{showTableHead() && (
-							<Head className="rdt_TableHead" role="rowgroup" fixedHeader={fixedHeader}>
-								<HeadRow className="rdt_TableHeadRow" role="row" dense={dense}>
-									{keepExpandableFirst ? (
-										<>
-											{expandableHeaderCol}
-											{selectableHeaderCol}
-										</>
-									) : (
-										<>
-											{selectableHeaderCol}
-											{expandableHeaderCol}
-										</>
-									)}
+				{freezedColumns.length > 0 && (
+					<div
+						style={{
+							position: 'absolute',
+							top: 0,
+							left: 0,
+						}}
+					>
+						<Table disabled={disabled} className="rdt_Table" role="table">
+							{showTableHead() && (
+								<Head className="rdt_TableHead" role="rowgroup" fixedHeader={fixedHeader}>
+									<HeadRow className="rdt_TableHeadRow" role="row" dense={dense}>
+										{keepExpandableFirst ? (
+											<>
+												{expandableHeaderCol}
+												{selectableHeaderCol}
+											</>
+										) : (
+											<>
+												{selectableHeaderCol}
+												{expandableHeaderCol}
+											</>
+										)}
 
-									{freezedColumns.slice(0, 3).map(column => (
-										<Column
-											key={column.id}
-											column={column}
-											selectedColumn={selectedColumn}
-											disabled={progressPending || sortedData.length === 0}
-											pagination={pagination}
-											paginationServer={paginationServer}
-											persistSelectedOnSort={persistSelectedOnSort}
-											selectableRowsVisibleOnly={selectableRowsVisibleOnly}
-											sortDirection={sortDirection}
-											sortIcon={sortIcon}
-											sortServer={sortServer}
-											onSort={handleSort}
-											onDragStart={handleDragStart}
-											onDragOver={handleDragOver}
-											onDragEnd={handleDragEnd}
-											onDragEnter={handleDragEnter}
-											onDragLeave={handleDragLeave}
-											draggingColumnId={draggingColumnId}
-											currentSortColumnId={currentSortColumnId}
-											currentSortDirection={currentSortDirection}
-										/>
-									))}
-								</HeadRow>
-							</Head>
-						)}
+										{freezedColumns.slice(0, 3).map(column => (
+											<Column
+												key={column.id}
+												column={column}
+												selectedColumn={selectedColumn}
+												disabled={progressPending || sortedData.length === 0}
+												pagination={pagination}
+												paginationServer={paginationServer}
+												persistSelectedOnSort={persistSelectedOnSort}
+												selectableRowsVisibleOnly={selectableRowsVisibleOnly}
+												sortDirection={sortDirection}
+												sortIcon={sortIcon}
+												sortServer={sortServer}
+												onSort={handleSort}
+												onDragStart={handleDragStart}
+												onDragOver={handleDragOver}
+												onDragEnd={handleDragEnd}
+												onDragEnter={handleDragEnter}
+												onDragLeave={handleDragLeave}
+												draggingColumnId={draggingColumnId}
+												currentSortColumnId={currentSortColumnId}
+												currentSortDirection={currentSortDirection}
+											/>
+										))}
+									</HeadRow>
+								</Head>
+							)}
 
-						{!progressPending && sortedData.length > 0 && (
-							<Body className="rdt_TableBody" role="rowgroup">
-								{tableRows.map((row, i) => {
-									const key = prop(row as TableRow, keyField) as string | number;
-									const id = isEmpty(key) ? i : key;
-									const selected = isRowSelected(row, selectedRows, keyField);
-									const expanded = isRowExpanded(row, expandedRows, keyField);
-									const expanderExpander = !!(expandableRows && expandableRowExpanded && expandableRowExpanded(row));
-									const expanderDisabled = !!(expandableRows && expandableRowDisabled && expandableRowDisabled(row));
+							{!progressPending && sortedData.length > 0 && (
+								<Body className="rdt_TableBody" role="rowgroup">
+									{tableRows.map((row, i) => {
+										const key = prop(row as TableRow, keyField) as string | number;
+										const id = isEmpty(key) ? i : key;
+										const selected = isRowSelected(row, selectedRows, keyField);
+										const expanded = isRowExpanded(row, expandedRows, keyField);
+										const expanderExpander = !!(expandableRows && expandableRowExpanded && expandableRowExpanded(row));
+										const expanderDisabled = !!(expandableRows && expandableRowDisabled && expandableRowDisabled(row));
 
-									return (
-										<Row
-											id={id}
-											key={id}
-											keyField={keyField}
-											data-row-id={id}
-											columns={freezedColumns}
-											row={row}
-											rowCount={sortedData.length}
-											rowIndex={i}
-											selectableRows={selectableRows}
-											expandableRows={expandableRows}
-											expandableIcon={expandableIcon}
-											highlightOnHover={highlightOnHover}
-											pointerOnHover={pointerOnHover}
-											dense={dense}
-											expandOnRowClicked={expandOnRowClicked}
-											expandOnRowDoubleClicked={expandOnRowDoubleClicked}
-											expandableRowsComponent={expandableRowsComponent}
-											expandableRowsComponentProps={expandableRowsComponentProps}
-											expandableRowsHideExpander={expandableRowsHideExpander}
-											defaultExpanderDisabled={expanderDisabled}
-											defaultExpanded={expanderExpander}
-											expandableInheritConditionalStyles={expandableInheritConditionalStyles}
-											conditionalRowStyles={conditionalRowStyles}
-											selected={selected}
-											expanded={expanded}
-											selectableRowsHighlight={selectableRowsHighlight}
-											selectableRowsComponent={selectableRowsComponent}
-											selectableRowsComponentProps={selectableRowsComponentProps}
-											selectableRowDisabled={selectableRowDisabled}
-											expandableRowDisabled={expandableRowDisabled}
-											selectableRowsSingle={selectableRowsSingle}
-											expandableRowsSingle={expandableRowsSingle}
-											striped={striped}
-											keepExpandableFirst={keepExpandableFirst}
-											onRowExpandToggled={onRowExpandToggled}
-											onRowClicked={handleRowClicked}
-											onRowDoubleClicked={handleRowDoubleClicked}
-											onSelectedRow={handleSelectedRow}
-											onExpandedRow={handleExpandedRow}
-											draggingColumnId={draggingColumnId}
-											onDragStart={handleDragStart}
-											onDragOver={handleDragOver}
-											onDragEnd={handleDragEnd}
-											onDragEnter={handleDragEnter}
-											onDragLeave={handleDragLeave}
-										/>
-									);
-								})}
-							</Body>
-						)}
-					</Table>
-					{footer && <div>{footer}</div>}
-				</div>
+										return (
+											<Row
+												id={id}
+												key={id}
+												keyField={keyField}
+												data-row-id={id}
+												columns={freezedColumns}
+												row={row}
+												rowCount={sortedData.length}
+												rowIndex={i}
+												selectableRows={selectableRows}
+												expandableRows={expandableRows}
+												expandableIcon={expandableIcon}
+												highlightOnHover={highlightOnHover}
+												pointerOnHover={pointerOnHover}
+												dense={dense}
+												expandOnRowClicked={expandOnRowClicked}
+												expandOnRowDoubleClicked={expandOnRowDoubleClicked}
+												expandableRowsComponent={expandableRowsComponent}
+												expandableRowsComponentProps={expandableRowsComponentProps}
+												expandableRowsHideExpander={expandableRowsHideExpander}
+												defaultExpanderDisabled={expanderDisabled}
+												defaultExpanded={expanderExpander}
+												expandableInheritConditionalStyles={expandableInheritConditionalStyles}
+												conditionalRowStyles={conditionalRowStyles}
+												selected={selected}
+												expanded={expanded}
+												selectableRowsHighlight={selectableRowsHighlight}
+												selectableRowsComponent={selectableRowsComponent}
+												selectableRowsComponentProps={selectableRowsComponentProps}
+												selectableRowDisabled={selectableRowDisabled}
+												expandableRowDisabled={expandableRowDisabled}
+												selectableRowsSingle={selectableRowsSingle}
+												expandableRowsSingle={expandableRowsSingle}
+												striped={striped}
+												keepExpandableFirst={keepExpandableFirst}
+												onRowExpandToggled={onRowExpandToggled}
+												onRowClicked={handleRowClicked}
+												onRowDoubleClicked={handleRowDoubleClicked}
+												onSelectedRow={handleSelectedRow}
+												onExpandedRow={handleExpandedRow}
+												draggingColumnId={draggingColumnId}
+												onDragStart={handleDragStart}
+												onDragOver={handleDragOver}
+												onDragEnd={handleDragEnd}
+												onDragEnter={handleDragEnter}
+												onDragLeave={handleDragLeave}
+											/>
+										);
+									})}
+								</Body>
+							)}
+						</Table>
+						{footer && <div>{footer}</div>}
+					</div>
+				)}
 			</div>
 
 			{enabledPagination && (
