@@ -604,7 +604,6 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 							top: 0,
 							left: 0,
 							maxWidth: '100%',
-							border: '1px solid black',
 						}}
 					>
 						<Table disabled={disabled} className="rdt_Table" role="table">
