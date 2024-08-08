@@ -138,16 +138,28 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 		defaultSortColumn,
 	} = useColumns(columns, onColumnOrderChange, defaultSortFieldId, defaultSortAsc);
 
-	const freezedColumns = React.useMemo(() => {
-		// Find index of last freezed column
-		const index = tableColumns.reduce((i, column) => {
-			if (column.freeze) {
-				i += 1;
-			}
-			return i;
-		}, 0);
+	// Find index of last freezed column
+	const index = React.useMemo(
+		() =>
+			tableColumns.reduce((i, column) => {
+				if (column.freeze) {
+					i += 1;
+				}
+				return i;
+			}, 0),
+		[tableColumns],
+	);
+
+	const tableColumnsBasedOnTable = React.useMemo(() => {
+		if (!isInnerTable) {
+			return tableColumns;
+		}
 		return tableColumns.slice(0, index);
-	}, [tableColumns]);
+	}, [index, isInnerTable, tableColumns]);
+
+	const freezedColumns = React.useMemo(() => {
+		return tableColumns.slice(0, index);
+	}, [index, tableColumns]);
 
 	const [
 		{
@@ -486,7 +498,7 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 											</>
 										)}
 
-										{tableColumns.map(column => (
+										{tableColumnsBasedOnTable.map(column => (
 											<Column
 												key={column.id}
 												column={column}
@@ -534,7 +546,7 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 												key={id}
 												keyField={keyField}
 												data-row-id={id}
-												columns={tableColumns}
+												columns={tableColumnsBasedOnTable}
 												row={row}
 												rowCount={sortedData.length}
 												rowIndex={i}
@@ -585,7 +597,7 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 					</Wrapper>
 				</ResponsiveWrapper>
 
-				{!isInnerTable && freezedColumns.length > 0 && (
+				{freezedColumns.length > 0 && (
 					<div
 						style={{
 							position: 'absolute',
@@ -610,7 +622,7 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 											</>
 										)}
 
-										{freezedColumns.slice(0, 3).map(column => (
+										{freezedColumns.map(column => (
 											<Column
 												key={column.id}
 												column={column}
