@@ -2038,7 +2038,6 @@ function DataTable(props) {
                     top: 0,
                     left: 0,
                     maxWidth: '100%',
-                    border: '1px solid black',
                 } },
                 React__namespace.createElement(TableStyle, { disabled: disabled, className: "rdt_Table", role: "table" },
                     showTableHead() && (React__namespace.createElement(Head, { className: "rdt_TableHead", role: "rowgroup", fixedHeader: fixedHeader },
