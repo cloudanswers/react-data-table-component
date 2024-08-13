@@ -520,7 +520,7 @@ const CellExpanderStyle = styled__default["default"](CellBase) `
 	min-width: 48px;
 	${({ theme }) => theme.expanderCell.style};
 `;
-function CellExpander({ name, row, expanded = false, expandableIcon, id, keyField, rowCount, onExpandedRow, expandableRowsSingle, expandableRowDisabled, }) {
+function CellExpander({ name, row, expanded = false, expandableIcon, id, keyField, rowCount, onExpandedRow, handleExpanded, expandableRowsSingle, expandableRowDisabled, }) {
     const disabled = !!(expandableRowDisabled && expandableRowDisabled(row));
     const handleOnRowExpanded = () => {
         onExpandedRow({
@@ -531,6 +531,7 @@ function CellExpander({ name, row, expanded = false, expandableIcon, id, keyFiel
             rowCount,
             singleExpand: expandableRowsSingle,
         });
+        handleExpanded();
     };
     return (React__namespace.createElement(CellExpanderStyle, { onClick: (e) => e.stopPropagation(), noPadding: true },
         React__namespace.createElement(ExpanderButton, { name: name, id: id, row: row, expanded: expanded, expandableIcon: expandableIcon, disabled: disabled, onToggled: handleOnRowExpanded })));
@@ -622,7 +623,7 @@ function Row({ columns = [], conditionalRowStyles = [], defaultExpanderDisabled 
     const inheritStyles = expandableInheritConditionalStyles ? style : {};
     const isStriped = striped && isOdd(rowIndex);
     const selectableCell = selectableRows && (React__namespace.createElement(TableCellCheckbox, { name: `select-row-${rowKeyField}`, keyField: keyField, row: row, rowCount: rowCount, selected: selected, selectableRowsComponent: selectableRowsComponent, selectableRowsComponentProps: selectableRowsComponentProps, selectableRowDisabled: selectableRowDisabled, selectableRowsSingle: selectableRowsSingle, onSelectedRow: onSelectedRow }));
-    const expandableCell = expandableRows && !expandableRowsHideExpander && (React__namespace.createElement(CellExpander, { name: `expand-row-${rowKeyField}`, keyField: keyField, id: rowKeyField, expandableIcon: expandableIcon, expanded: expanded, row: row, rowCount: rowCount, expandableRowsSingle: expandableRowsSingle, expandableRowDisabled: expandableRowDisabled, onExpandedRow: onExpandedRow, disabled: defaultExpanderDisabled }));
+    const expandableCell = expandableRows && !expandableRowsHideExpander && (React__namespace.createElement(CellExpander, { name: `expand-row-${rowKeyField}`, keyField: keyField, id: rowKeyField, expandableIcon: expandableIcon, expanded: expanded, row: row, rowCount: rowCount, expandableRowsSingle: expandableRowsSingle, expandableRowDisabled: expandableRowDisabled, onExpandedRow: onExpandedRow, handleExpanded: handleExpanded, disabled: defaultExpanderDisabled }));
     return (React__namespace.createElement(React__namespace.Fragment, null,
         React__namespace.createElement(TableRowStyle, { id: `row-${id}`, role: "row", striped: isStriped, highlightOnHover: highlightOnHover, pointerOnHover: !defaultExpanderDisabled && showPointer, dense: dense, onClick: handleRowClick, onDoubleClick: handleRowDoubleClick, className: classNames, selected: highlightSelected, style: style },
             keepExpandableFirst ? (React__namespace.createElement(React__namespace.Fragment, null,

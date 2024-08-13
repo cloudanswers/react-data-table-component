@@ -12,6 +12,7 @@ declare type CellExpanderProps<T> = {
     expandableRowsSingle: boolean;
     expandableRowDisabled: RowState<T>;
     onExpandedRow: (action: ExpandSingleRowAction<T>) => void;
+    handleExpanded: () => void;
 };
-declare function CellExpander<T>({ name, row, expanded, expandableIcon, id, keyField, rowCount, onExpandedRow, expandableRowsSingle, expandableRowDisabled, }: CellExpanderProps<T>): JSX.Element;
+declare function CellExpander<T>({ name, row, expanded, expandableIcon, id, keyField, rowCount, onExpandedRow, handleExpanded, expandableRowsSingle, expandableRowDisabled, }: CellExpanderProps<T>): JSX.Element;
 export default CellExpander;
