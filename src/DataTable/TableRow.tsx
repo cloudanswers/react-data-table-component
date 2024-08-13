@@ -205,6 +205,7 @@ function Row<T>({
 			expandableRowsSingle={expandableRowsSingle}
 			expandableRowDisabled={expandableRowDisabled}
 			onExpandedRow={onExpandedRow}
+			handleExpanded={handleExpanded}
 			disabled={defaultExpanderDisabled}
 		/>
 	);

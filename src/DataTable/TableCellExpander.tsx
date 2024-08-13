@@ -23,6 +23,7 @@ type CellExpanderProps<T> = {
 	expandableRowsSingle: boolean;
 	expandableRowDisabled: RowState<T>;
 	onExpandedRow: (action: ExpandSingleRowAction<T>) => void;
+	handleExpanded: () => void;
 };
 
 function CellExpander<T>({
@@ -34,6 +35,7 @@ function CellExpander<T>({
 	keyField,
 	rowCount,
 	onExpandedRow,
+	handleExpanded,
 	expandableRowsSingle,
 	expandableRowDisabled,
 }: CellExpanderProps<T>): JSX.Element {
@@ -48,6 +50,7 @@ function CellExpander<T>({
 			rowCount,
 			singleExpand: expandableRowsSingle,
 		});
+		handleExpanded();
 	};
 
 	return (
